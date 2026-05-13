@@ -1,0 +1,58 @@
+@import "tailwindcss";
+
+@theme {
+  --color-navy-light: #1E293B;
+  --color-navy: #0F172A;
+  --color-navy-dark: #020617;
+  --color-orange-warm: #F59E0B;
+  --color-orange-hover: #D97706;
+  --color-beige-soft: #FDF6E3;
+  --color-beige-dark: #F5E6D3;
+  --color-gold: #D4AF37;
+  --font-sans: "Inter", sans-serif;
+  --font-serif: "Playfair Display", serif;
+}
+
+@layer base {
+  body {
+    @apply bg-beige-soft text-navy font-sans;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif;
+  }
+}
+
+.btn-primary {
+  @apply bg-orange-warm text-white px-6 py-2 rounded-lg font-medium transition-all hover:bg-orange-hover active:scale-95 disabled:bg-gray-400;
+}
+
+.btn-outline {
+  @apply border-2 border-orange-warm text-orange-warm px-6 py-2 rounded-lg font-medium transition-all hover:bg-orange-warm hover:text-white active:scale-95;
+}
+
+.glass-card {
+  @apply bg-white/70 backdrop-blur-md border border-white/30 rounded-2xl shadow-xl;
+}
+
+.nav-link {
+  @apply text-navy-light hover:text-orange-warm font-medium transition-colors;
+}
+
+.whitespace-pre-wrap {
+  white-space: pre-wrap;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  height: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: var(--color-beige-dark);
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--color-orange-warm);
+  border-radius: 10px;
+}
