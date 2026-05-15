@@ -17,7 +17,7 @@ const Profile = () => {
             Authorization: `Bearer ${localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')).token : ''}`,
           },
         };
-        const { data } = await axios.get('http://localhost:5000/api/orders/myorders', config);
+        const { data } = await axios.get('https://quran-gift-shop.onrender.com/api/orders/myorders', config);
         setOrders(data);
         setLoading(false);
       } catch (error) {

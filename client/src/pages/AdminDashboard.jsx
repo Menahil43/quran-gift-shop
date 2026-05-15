@@ -73,8 +73,8 @@ const AdminDashboard = () => {
       };
 
       const [ordersRes, productsRes] = await Promise.all([
-        axios.get('http://localhost:5000/api/orders', config),
-        axios.get('http://localhost:5000/api/products')
+        axios.get('https://quran-gift-shop.onrender.com/api/orders', config),
+        axios.get('https://quran-gift-shop.onrender.com/api/products')
       ]);
 
       setOrders(ordersRes.data);
@@ -113,10 +113,10 @@ const AdminDashboard = () => {
       };
 
       if (isEditing) {
-        await axios.put(`http://localhost:5000/api/products/${editProductId}`, productToSave, config);
+        await axios.put(`https://quran-gift-shop.onrender.com/api/products/${editProductId}`, productToSave, config);
         toast.success('Product updated successfully!');
       } else {
-        await axios.post('http://localhost:5000/api/products', productToSave, config);
+        await axios.post('https://quran-gift-shop.onrender.com/api/products', productToSave, config);
         toast.success('Product added successfully!');
       }
 
@@ -169,13 +169,13 @@ const AdminDashboard = () => {
       };
       
       try {
-        const { data } = await axios.get(`http://localhost:5000/api/products/${id}`);
+        const { data } = await axios.get(`https://quran-gift-shop.onrender.com/api/products/${id}`);
         console.log('Product Data Loaded:', data);
       } catch (logError) {
         console.error('Error logging product details:', logError);
       }
 
-      await axios.delete(`http://localhost:5000/api/products/${id}`, config);
+      await axios.delete(`https://quran-gift-shop.onrender.com/api/products/${id}`, config);
       toast.success('Product deleted');
       fetchData();
     } catch (error) {
@@ -197,7 +197,7 @@ const AdminDashboard = () => {
           Authorization: `Bearer ${token}`,
         },
       };
-      await axios.put(`http://localhost:5000/api/orders/${orderId}/pay`, {}, config);
+      await axios.put(`https://quran-gift-shop.onrender.com/api/orders/${orderId}/pay`, {}, config);
       toast.success('Payment confirmed!');
       fetchData();
     } catch (error) {
@@ -228,10 +228,10 @@ const AdminDashboard = () => {
       for (let i = 0; i < files.length; i++) {
         const singleFormData = new FormData();
         singleFormData.append('image', files[i]);
-        const { data } = await axios.post('http://localhost:5000/api/upload', singleFormData, config);
+        const { data } = await axios.post('https://quran-gift-shop.onrender.com/api/upload', singleFormData, config);
         setNewProduct(prev => ({ 
           ...prev, 
-          images: [...prev.images, `http://localhost:5000${data}`] 
+          images: [...prev.images, `https://quran-gift-shop.onrender.com${data}`] 
         }));
       }
       

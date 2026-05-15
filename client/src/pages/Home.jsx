@@ -37,7 +37,7 @@ const Home = () => {
   useEffect(() => {
     const fetchBestSellers = async () => {
       try {
-        const { data } = await axios.get('http://localhost:5000/api/products');
+        const { data } = await axios.get('https://quran-gift-shop.onrender.com/api/products');
         const filtered = data.filter(p => p.isBestSeller === true);
         // Only show up to 4 best sellers on home page for a clean look
         setBestSellers(filtered.slice(0, 4));

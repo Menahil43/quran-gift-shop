@@ -31,7 +31,7 @@ const Shop = () => {
     const fetchProducts = async () => {
       setLoading(true);
       try {
-        const { data } = await axios.get('http://localhost:5000/api/products');
+        const { data } = await axios.get('https://quran-gift-shop.onrender.com/api/products');
         setProducts(data);
         setLoading(false);
       } catch (error) {

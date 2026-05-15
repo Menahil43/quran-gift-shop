@@ -116,7 +116,7 @@ const Checkout = () => {
         nikkahDate
       };
 
-      await axios.post('http://localhost:5000/api/orders', orderData, config);
+      await axios.post('https://quran-gift-shop.onrender.com/api/orders', orderData, config);
       
       toast.success('Order placed successfully!');
       clearCart();

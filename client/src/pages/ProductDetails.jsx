@@ -21,7 +21,7 @@ const ProductDetails = () => {
     const fetchProduct = async () => {
       setLoading(true);
       try {
-        const { data } = await axios.get(`http://localhost:5000/api/products/${id}`);
+        const { data } = await axios.get(`https://quran-gift-shop.onrender.com/api/products/${id}`);
         console.log('DEBUG - Product Loaded:', data);
         setProduct(data);
         setLoading(false);
