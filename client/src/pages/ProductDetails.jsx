@@ -133,7 +133,7 @@ const ProductDetails = () => {
                     Select Set Type:
                   </span>
                   <div className="flex gap-3">
-                    {((Array.isArray(product.category) ? product.category.includes('Quran Ghilaf') : product.category === 'Quran Ghilaf') ? ['Quran with Ghilaf', 'Only Ghilaf'] : ['Complete', 'Only Box']).map(type => (
+                    {((Array.isArray(product.category) ? product.category.includes('Quran Ghilaf') : product.category === 'Quran Ghilaf') ? ['Quran with Ghilaf', 'Only Ghilaf'] : ['Complete Set', 'Only Box']).map(type => (
                       <button
                         key={type}
                         onClick={() => setSelectedType(type)}
