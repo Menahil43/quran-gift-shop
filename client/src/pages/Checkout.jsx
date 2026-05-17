@@ -43,8 +43,9 @@ const Checkout = () => {
   [cartItems]);
 
   // Dynamic Price Calculation
+  const deliveryFee = 350;
   const customizationCost = useMemo(() => customOptions.length * 100, [customOptions]);
-  const totalPrice = baseTotalPrice + customizationCost;
+  const totalPrice = baseTotalPrice + customizationCost + deliveryFee;
   const advanceAmount = totalPrice / 2;
   const remainingAmount = totalPrice - advanceAmount;
 
@@ -348,6 +349,10 @@ const Checkout = () => {
                       <span>+Rs. {customizationCost}</span>
                     </div>
                   )}
+                  <div className="flex justify-between text-sm text-gray-400">
+                    <span>Delivery Fee</span>
+                    <span>+Rs. {deliveryFee}</span>
+                  </div>
                 </div>
                 {brideName && groomName && (
                   <div className="mb-6 p-4 bg-white/5 rounded-2xl border border-pink-500/30">
