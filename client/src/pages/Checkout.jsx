@@ -35,7 +35,11 @@ const Checkout = () => {
 
   // Check for Nikkah Sets in cart
   const hasNikkahSet = useMemo(() => 
-    cartItems.some(item => item.category === 'Nikkah sets'), 
+    cartItems.some(item => Array.isArray(item.category) ? item.category.includes('Nikkah sets') : item.category === 'Nikkah sets'), 
+  [cartItems]);
+
+  const hasGenericItem = useMemo(() => 
+    cartItems.some(item => Array.isArray(item.category) ? !item.category.includes('Nikkah sets') : item.category !== 'Nikkah sets'), 
   [cartItems]);
 
   // Dynamic Price Calculation
@@ -235,23 +239,25 @@ const Checkout = () => {
                     )}
 
                     {/* Generic Personalization */}
-                    <div>
-                      <h3 className="text-xl font-bold text-navy mb-4">Print/Engraving Name</h3>
-                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
-                        {['Quran Pak', 'Box', 'Tasbeeh'].map(opt => (
-                          <label key={opt} className={`flex items-center justify-center gap-3 p-4 rounded-2xl border-2 cursor-pointer transition-all ${customOptions.includes(opt) ? 'border-orange-warm bg-orange-50 text-navy' : 'border-beige-dark text-gray-400'}`}>
-                            <input type="checkbox" className="hidden" checked={customOptions.includes(opt)} onChange={() => toggleOption(opt)} />
-                            <span className="font-bold">{opt}</span>
-                          </label>
-                        ))}
+                    {hasGenericItem && (
+                      <div>
+                        <h3 className="text-xl font-bold text-navy mb-4">Print/Engraving Name</h3>
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
+                          {['Quran Pak', 'Box', 'Tasbeeh'].map(opt => (
+                            <label key={opt} className={`flex items-center justify-center gap-3 p-4 rounded-2xl border-2 cursor-pointer transition-all ${customOptions.includes(opt) ? 'border-orange-warm bg-orange-50 text-navy' : 'border-beige-dark text-gray-400'}`}>
+                              <input type="checkbox" className="hidden" checked={customOptions.includes(opt)} onChange={() => toggleOption(opt)} />
+                              <span className="font-bold">{opt}</span>
+                            </label>
+                          ))}
+                        </div>
+                        <input 
+                          type="text" placeholder="Enter name to be printed..."
+                          className="w-full p-4 bg-beige-soft rounded-2xl outline-none"
+                          value={customName} onChange={(e) => setCustomName(e.target.value)}
+                        />
+                        <p className="text-[10px] text-gray-400 mt-2 italic">Custom printing adds Rs. 100 per selected item.</p>
                       </div>
-                      <input 
-                        type="text" placeholder="Enter name to be printed..."
-                        className="w-full p-4 bg-beige-soft rounded-2xl outline-none"
-                        value={customName} onChange={(e) => setCustomName(e.target.value)}
-                      />
-                      <p className="text-[10px] text-gray-400 mt-2 italic">Custom printing adds Rs. 100 per selected item.</p>
-                    </div>
+                    )}
 
                     <div className="flex gap-4">
                       <button onClick={() => setStep(1)} className="flex-1 py-4 text-gray-500 font-bold">Back</button>
