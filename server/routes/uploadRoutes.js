@@ -1,41 +1,30 @@
-const path = require('path');
 const express = require('express');
 const multer = require('multer');
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
+const cloudinary = require('cloudinary').v2;
+const dotenv = require('dotenv');
+
+dotenv.config();
 const router = express.Router();
 
-const storage = multer.diskStorage({
-  destination(req, file, cb) {
-    cb(null, 'uploads/');
-  },
-  filename(req, file, cb) {
-    cb(
-      null,
-      `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`
-    );
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: 'quran_gift_shop',
+    allowed_formats: ['jpg', 'png', 'jpeg'],
   },
 });
 
-function checkFileType(file, cb) {
-  const filetypes = /jpg|jpeg|png/;
-  const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
-  const mimetype = filetypes.test(file.mimetype);
-
-  if (extname && mimetype) {
-    return cb(null, true);
-  } else {
-    cb('Images only!');
-  }
-}
-
-const upload = multer({
-  storage,
-  fileFilter: function (req, file, cb) {
-    checkFileType(file, cb);
-  },
-});
+const upload = multer({ storage: storage });
 
 router.post('/', upload.single('image'), (req, res) => {
-  res.send(`/${req.file.path.replace(/\\/g, '/')}`);
+  res.send(req.file.path); // Cloudinary secure URL
 });
 
 module.exports = router;

@@ -231,7 +231,7 @@ const AdminDashboard = () => {
         const { data } = await axios.post('https://quran-gift-shop.onrender.com/api/upload', singleFormData, config);
         setNewProduct(prev => ({ 
           ...prev, 
-          images: [...prev.images, `https://quran-gift-shop.onrender.com${data}`] 
+          images: [...prev.images, data] 
         }));
       }
       
